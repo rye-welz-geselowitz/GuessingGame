@@ -1,0 +1,48 @@
+body{
+  background-color:#00334d;
+  color:white;
+  font-size:16px
+}
+.container{
+ width:80%;
+ border: white 1px solid;
+ padding:32px;
+ 
+}
+
+h1{
+  color:white;
+  text-transform:uppercase;
+  
+}
+.btn1{
+  padding:10px;
+  background-color:teal;
+  color:white;
+  font-size:24px
+  
+}
+.btn1:hover{
+  padding:10px;
+  background-color:white;
+  color:#00334d;
+  font-size:24px
+  
+}
+.btn2{
+  padding:10px;
+  background-color:#00334d;
+  color:white;
+  font-size:18px
+  
+}
+.btn2:hover{
+  padding:10px;
+  background-color:white;
+  color:#00334d;
+  font-size:16px
+  
+}
+input {
+    width: 100%;
+}
