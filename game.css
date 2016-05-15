@@ -15,14 +15,14 @@ h1{
   text-transform:uppercase;
   
 }
-.btn1{
+.submitGuess{
   padding:10px;
   background-color:teal;
   color:white;
   font-size:24px
   
 }
-.btn1:hover{
+.submitGuess:hover{
   padding:10px;
   background-color:white;
   color:#00334d;
