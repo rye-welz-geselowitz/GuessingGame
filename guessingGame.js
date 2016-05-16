@@ -4,7 +4,7 @@
 
 var prevGuesses=[];
 var winningNumber=generateWinningNumber();
-
+var guessesRemaining=20;
 
 /* **** Guessing Game Functions **** */
 
@@ -28,50 +28,101 @@ function playersGuessSubmission(){
 
 // Determine if the next guess should be a lower or higher number
 
-function guessMessage(playersGuess,winningNumber){
+function guessMessage(playersGuess,winningNumber,guessesRemaining){
+	$('#guessesLeft').text(guessesRemaining+" guesses remaining.");
+	if (playersGuess==winningNumber){
+		return;
+	}
+	var inRange=(playersGuess>=1)&&(playersGuess<=100);
+	if(inRange==false){
+	    return;
+	}
     var comparison=lowerOrHigher(playersGuess,winningNumber);
+    var distMessage=getDistance(playersGuess,winningNumber);
+    var message="Your guess was "+comparison+" than the winning number. "+distMessage;
+    $('#feedback2').text(message);
+    
 }
 function lowerOrHigher(playersGuess,winningNumber){
 	if(playersGuess>winningNumber){
 	    return "higher";
 	}
-	else{
+	else if (playersGuess<winningNumber){
 	    return "lower";
 	}
-	//WHAT ABOUT ==?
+}
+function getDistance(playersGuess,winningNumber){
+	var difference=Math.abs(playersGuess-winningNumber);
+	if (difference<=5){
+		return "But you were within 5 digits!"
+	}
+	if (difference<=10){
+		return "But you were within 10 digits!"
+	}
+	if (difference<=20){
+		return "But you were within 20 digits!"
+	}
+	else{
+		return "And you were more than 20 digits from the winning number. Sad."
+	}
 }
 
 // Check if the Player's Guess is the winning number 
 
-function checkGuess(playersGuess,winningNumber){
+function checkGuess(playersGuess,winningNumber,guessesRemaining){
 	if(winningNumber==playersGuess){
-	    $('#feedback').text("YOU WON");
+	    //$('#feedback').text("YOU WON");
+	    rewardWinner();
 	}
 	else{
 	    $('#feedback').text("TRY AGAIN");
 	}
-	var inRange=(playersGuess>=0)&&(playersGuess<=100);
+	var inRange=(playersGuess>=1)&&(playersGuess<=100);
 	if(inRange==false){
 	    $('#feedback').text("Should be between 1 and 100.");
 	}
 	else if(prevGuesses.indexOf(playersGuess)==-1){
 	    prevGuesses.push(playersGuess);
+	    guessesRemaining--;
 	}
 	else{
 	   $('#feedback').text("You already tried that..."); 
 	}
+	return guessesRemaining;
 }
 
 // Create a provide hint button that provides additional clues to the "Player"
 
-function provideHint(){
-	// add code here
+function provideHint(guessesRemaining){
+	$('hint').text("The number is one of the following:");
+	//TODO: FINISH!!!!
 }
 
 // Allow the "Player" to Play Again
 
-function playAgain(){
-	// add code here
+function rewardWinner(){
+	$('#stillGoing').hide();
+	$('#winner').show();
+}
+function checkLoser(guessesRemaining,winningNumber){
+	if(guessesRemaining==0){
+		$('#stillGoing').hide();
+		$('#loser').show();
+		$('#reveal').text("The winning number was "+winningNumber);
+	}
+}
+function reset(){
+	var prevGuesses=[];
+	var winningNumber=generateWinningNumber();
+	var guessesRemaining=20;
+	var newGlobalVars=[prevGuesses,winningNumber,guessesRemaining];
+	$('#loser').hide();
+	$('#winner').hide();
+	$('#stillGoing').show();
+	$('#feedback').text("");
+	$('#feedback2').text("");
+	$('#guessesLeft').text("20 guesses remaining");
+	return newGlobalVars;
 }
 
 
@@ -81,7 +132,18 @@ $(document).ready(function(){
     $('.submitGuess').on('click',function(){
         var playersGuess=playersGuessSubmission();
         alert(winningNumber);
-        checkGuess(playersGuess,winningNumber);
-        guessMessage(playersGuess,winningNumber);
+        $('#feedback2').text("");
+        guessesRemaining=checkGuess(playersGuess,winningNumber,guessesRemaining);
+        guessMessage(playersGuess,winningNumber,guessesRemaining);
+        checkLoser(guessesRemaining,winningNumber);
+    });
+    $('.playAgain').on('click',function(){
+        var newGlobalVars=reset();
+        prevGuesses=newGlobalVars[0];
+        winningNumber=newGlobalVars[1];
+        guessesRemaining=newGlobalVars[2];
+    });
+    $('.hint').on('click',function(){
+        provideHint(guessesRemaining);
     });
 });

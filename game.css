@@ -15,26 +15,29 @@ h1{
   text-transform:uppercase;
   
 }
-#feedback{
+#feedback,#feedback2,#guessesLeft,#reveal,#hint{
   color:white;
   font-size:24px;
  padding:10px;
 }
-.submitGuess{
+#loser,#winner{
+  display:none;
+}
+.submitGuess,.playAgain{
   padding:10px;
   background-color:teal;
   color:white;
   font-size:24px
   
 }
-.submitGuess:hover{
+.submitGuess:hover,.playAgain:hover{
   padding:10px;
   background-color:white;
   color:#00334d;
   font-size:24px
   
 }
-.btn2{
+.hint{
   padding:10px;
   background-color:#00334d;
   color:white;
