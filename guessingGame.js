@@ -93,8 +93,33 @@ function checkGuess(playersGuess,winningNumber,guessesRemaining){
 
 // Create a provide hint button that provides additional clues to the "Player"
 
-function provideHint(guessesRemaining){
-	$('hint').text("The number is one of the following:");
+function provideHint(guessesRemaining,winningNumber){
+	alert(winningNumber);
+	var numOptions;
+	if(guessesRemaining>=5){
+		numOptions=10;
+	}
+	else if(guessesRemaining==4){
+		numOptions=8;
+	}
+	else if(guessesRemaining==3){
+		numOptions=6;
+	}
+	else if(guessesRemaining==2){
+		numOptions=4;
+	}
+	else if(guessesRemaining==1){
+		numOptions=2;
+	}
+	var options=[winningNumber];
+	var curr;
+	while(options.length<numOptions){
+		curr=getRandomIntInclusive(0, 100);
+		options.push(curr);
+	}
+	options.sort(function(a, b){return a-b})
+	var optionsString=options.join(", ");
+	$('#hint').text("The number is one of the following: "+optionsString);
 	//TODO: FINISH!!!!
 }
 
@@ -121,6 +146,7 @@ function reset(){
 	$('#stillGoing').show();
 	$('#feedback').text("");
 	$('#feedback2').text("");
+	$('#hint').text("");
 	$('#guessesLeft').text("20 guesses remaining");
 	return newGlobalVars;
 }
@@ -144,6 +170,6 @@ $(document).ready(function(){
         guessesRemaining=newGlobalVars[2];
     });
     $('.hint').on('click',function(){
-        provideHint(guessesRemaining);
+        provideHint(guessesRemaining,winningNumber);
     });
 });
