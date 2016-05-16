@@ -151,18 +151,33 @@ function reset(){
 	return newGlobalVars;
 }
 
+function guessSubmission(){
+	var playersGuess=playersGuessSubmission();
+    alert(winningNumber);
+    $('#feedback2').text("");
+    guessesRemaining=checkGuess(playersGuess,winningNumber,guessesRemaining);
+    guessMessage(playersGuess,winningNumber,guessesRemaining);
+    checkLoser(guessesRemaining,winningNumber);
+}
+
 
 /* **** Event Listeners/Handlers ****  */
 $(document).ready(function(){
     
     $('.submitGuess').on('click',function(){
-        var playersGuess=playersGuessSubmission();
+    	guessSubmission();
+        /*var playersGuess=playersGuessSubmission();
         alert(winningNumber);
         $('#feedback2').text("");
         guessesRemaining=checkGuess(playersGuess,winningNumber,guessesRemaining);
         guessMessage(playersGuess,winningNumber,guessesRemaining);
-        checkLoser(guessesRemaining,winningNumber);
+        checkLoser(guessesRemaining,winningNumber);*/
     });
+    $('#guessInput').keypress(function(e) {
+	  if (e.which == '13') {
+	     guessSubmission();
+   }
+});
     $('.playAgain').on('click',function(){
         var newGlobalVars=reset();
         prevGuesses=newGlobalVars[0];
