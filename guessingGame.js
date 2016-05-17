@@ -1,11 +1,3 @@
-
-/* **** Global Variables **** */
-// try to elminate these global variables in your project, these are here just to start.
-
-var prevGuesses=[];
-var winningNumber=generateWinningNumber();
-var guessesRemaining=20;
-
 /* **** Guessing Game Functions **** */
 
 // Generate the Winning Number
@@ -28,7 +20,8 @@ function playersGuessSubmission(){
 
 // Determine if the next guess should be a lower or higher number
 
-function guessMessage(playersGuess,winningNumber,guessesRemaining){
+function guessMessage(playersGuess,winningNumber,prevGuesses){
+	var guessesRemaining=(20-(prevGuesses.length+1));
 	$('#guessesLeft').text(guessesRemaining+" guesses remaining.");
 	if (playersGuess==winningNumber){
 		return;
@@ -39,7 +32,7 @@ function guessMessage(playersGuess,winningNumber,guessesRemaining){
 	}
     var comparison=lowerOrHigher(playersGuess,winningNumber);
     var distMessage=getDistance(playersGuess,winningNumber);
-    var message="Your guess was "+comparison+" than the winning number. "+distMessage;
+    var message="Your guess, "+playersGuess+ ", was "+comparison+" than the winning number. "+distMessage;
     $('#feedback2').text(message);
     
 }
@@ -69,7 +62,7 @@ function getDistance(playersGuess,winningNumber){
 
 // Check if the Player's Guess is the winning number 
 
-function checkGuess(playersGuess,winningNumber,guessesRemaining){
+function checkGuess(playersGuess,winningNumber,prevGuesses){
 	if(winningNumber==playersGuess){
 	    //$('#feedback').text("YOU WON");
 	    rewardWinner();
@@ -82,20 +75,21 @@ function checkGuess(playersGuess,winningNumber,guessesRemaining){
 	    $('#feedback').text("Should be between 1 and 100.");
 	}
 	else if(prevGuesses.indexOf(playersGuess)==-1){
+		guessMessage(playersGuess,winningNumber,prevGuesses);
 	    prevGuesses.push(playersGuess);
-	    guessesRemaining--;
+	    //guessesRemaining--;
 	}
 	else{
 	   $('#feedback').text("You already tried that..."); 
 	}
-	return guessesRemaining;
+	return prevGuesses;
 }
 
 // Create a provide hint button that provides additional clues to the "Player"
 
 function provideHint(guessesRemaining,winningNumber){
-	alert(winningNumber);
 	var numOptions;
+	//alert(guessesRemaining);
 	if(guessesRemaining>=5){
 		numOptions=10;
 	}
@@ -120,7 +114,7 @@ function provideHint(guessesRemaining,winningNumber){
 	options.sort(function(a, b){return a-b})
 	var optionsString=options.join(", ");
 	$('#hint').text("The number is one of the following: "+optionsString);
-	//TODO: FINISH!!!!
+	
 }
 
 // Allow the "Player" to Play Again
@@ -137,10 +131,7 @@ function checkLoser(guessesRemaining,winningNumber){
 	}
 }
 function reset(){
-	var prevGuesses=[];
 	var winningNumber=generateWinningNumber();
-	var guessesRemaining=20;
-	var newGlobalVars=[prevGuesses,winningNumber,guessesRemaining];
 	$('#loser').hide();
 	$('#winner').hide();
 	$('#stillGoing').show();
@@ -148,43 +139,76 @@ function reset(){
 	$('#feedback2').text("");
 	$('#hint').text("");
 	$('#guessesLeft').text("20 guesses remaining");
-	return newGlobalVars;
+	return winningNumber;
 }
 
-function guessSubmission(){
+function guessSubmission(winningNumber,prevGuesses){
 	var playersGuess=playersGuessSubmission();
-    alert(winningNumber);
+    //alert(winningNumber);
     $('#feedback2').text("");
-    guessesRemaining=checkGuess(playersGuess,winningNumber,guessesRemaining);
-    guessMessage(playersGuess,winningNumber,guessesRemaining);
+    prevGuesses=checkGuess(playersGuess,winningNumber,prevGuesses);
+    var guessesRemaining=20-prevGuesses.length;
     checkLoser(guessesRemaining,winningNumber);
+    return prevGuesses;
+    //return [playersGuess,prevGuesses];
 }
 
 
 /* **** Event Listeners/Handlers ****  */
 $(document).ready(function(){
-    
-    $('.submitGuess').on('click',function(){
-    	guessSubmission();
-        /*var playersGuess=playersGuessSubmission();
-        alert(winningNumber);
-        $('#feedback2').text("");
-        guessesRemaining=checkGuess(playersGuess,winningNumber,guessesRemaining);
-        guessMessage(playersGuess,winningNumber,guessesRemaining);
-        checkLoser(guessesRemaining,winningNumber);*/
+/*
+	function generateVariables(){
+		var prevGuesses=[];
+		var winningNumber=generateWinningNumber();
+		function f0(prevGuesses,winningNumber){
+			prevGuesses=guessSubmission(winningNumber,prevGuesses);
+		}
+		function f1(){
+			winningNumber=reset(prevGuesses);
+        	prevGuesses=[];
+			
+		}
+		function f2(prevGuesses,winningNumber){
+			var guessesRemaining=(20-prevGuesses.length);
+        	provideHint(guessesRemaining,winningNumber);
+		}
+		return [f0,f1,f2];
+	}
+	var funcArr=generateVariables();
+	$('.submitGuess').on('click',function(){
+    	funcArr[0]();
     });
     $('#guessInput').keypress(function(e) {
 	  if (e.which == '13') {
-	     guessSubmission();
+	     funcArr[0]();
    }
-});
+	});
     $('.playAgain').on('click',function(){
-        var newGlobalVars=reset();
-        prevGuesses=newGlobalVars[0];
-        winningNumber=newGlobalVars[1];
-        guessesRemaining=newGlobalVars[2];
+        funcArr[1]();
     });
     $('.hint').on('click',function(){
+    	funcArr[2]();
+    });
+});
+*/
+	
+    var prevGuesses=[];
+	var winningNumber=generateWinningNumber();
+    $('.submitGuess').on('click',function(){
+    	prevGuesses=guessSubmission(winningNumber,prevGuesses);
+    });
+    $('#guessInput').keypress(function(e) {
+	  if (e.which == '13') {
+	     prevGuesses=guessSubmission(winningNumber,prevGuesses);
+   }
+	});
+    $('.playAgain').on('click',function(){
+        winningNumber=reset();
+        prevGuesses=[] //how to eliminate global vars???
+    });
+    $('.hint').on('click',function(){
+    	var guessesRemaining=(20-prevGuesses.length);
         provideHint(guessesRemaining,winningNumber);
     });
+
 });

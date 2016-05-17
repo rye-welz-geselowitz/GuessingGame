@@ -18,13 +18,13 @@ h1{
 #feedback,#feedback2,#guessesLeft,#reveal,#hint{
   color:white;
   font-size:24px;
- padding:10px;
+  padding:0px;
 }
 #loser,#winner{
   display:none;
 }
 .submitGuess,.playAgain{
-  padding:10px;
+  padding:20px;
   background-color:teal;
   color:white;
   font-size:24px
