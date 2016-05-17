@@ -156,6 +156,28 @@ function guessSubmission(winningNumber,prevGuesses){
 
 /* **** Event Listeners/Handlers ****  */
 $(document).ready(function(){
+
+	
+    var prevGuesses=[];
+	var winningNumber=generateWinningNumber();
+    $('.submitGuess').on('click',function(){
+    	prevGuesses=guessSubmission(winningNumber,prevGuesses);
+    });
+    $('#guessInput').keypress(function(e) {
+	  if (e.which == '13') {
+	     prevGuesses=guessSubmission(winningNumber,prevGuesses);
+   }
+	});
+    $('.playAgain').on('click',function(){
+        winningNumber=reset();
+        prevGuesses=[] //how to eliminate global vars???
+    });
+    $('.hint').on('click',function(){
+    	var guessesRemaining=(20-prevGuesses.length);
+        provideHint(guessesRemaining,winningNumber);
+    });
+});
+
 /*
 	function generateVariables(){
 		var prevGuesses=[];
@@ -189,26 +211,4 @@ $(document).ready(function(){
     $('.hint').on('click',function(){
     	funcArr[2]();
     });
-});
-*/
-	
-    var prevGuesses=[];
-	var winningNumber=generateWinningNumber();
-    $('.submitGuess').on('click',function(){
-    	prevGuesses=guessSubmission(winningNumber,prevGuesses);
-    });
-    $('#guessInput').keypress(function(e) {
-	  if (e.which == '13') {
-	     prevGuesses=guessSubmission(winningNumber,prevGuesses);
-   }
-	});
-    $('.playAgain').on('click',function(){
-        winningNumber=reset();
-        prevGuesses=[] //how to eliminate global vars???
-    });
-    $('.hint').on('click',function(){
-    	var guessesRemaining=(20-prevGuesses.length);
-        provideHint(guessesRemaining,winningNumber);
-    });
-
-});
+});*/
