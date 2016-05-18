@@ -20,7 +20,8 @@ h1{
 }
 
 #feedback,#feedback2,#reveal,#hint{
-  color:gray;
+  color:  white;
+  background-color:gray;
   font-size:24px;
 }
 #guessesLeft,.winnerMessage{
@@ -49,19 +50,19 @@ h1{
   text-transform:lowercase;
   letter-spacing:1pt;
   word-spacing:2pt;
-  font-size:32px;
-  font-family:impact, sans-serif;
+  font-size:16px;
+  /*font-family:impact, sans-serif;*/
   line-height:1;
   
 }
-.submitGuess:hover,.playAgain:hover{
+.submitGuess:hover,.playAgain:hover,.hint:hover{
   background-color:gray;
   color:white;
   text-transform:lowercase;
   letter-spacing:1pt;
   word-spacing:2pt;
-  font-size:32px;
-  font-family:impact, sans-serif;
+  /*font-size:32px;*/
+  /*font-family:impact, sans-serif;*/
   line-height:1;
 }
 
