@@ -34,7 +34,7 @@ function GuessEngine(){
 			rewardWinner();
 		}
 		else{
-	    	$('#feedback').text("TRY AGAIN");
+	    	$('#feedback').text("Try again.");
 		}	
 		var inRange=(playersGuess>=1)&&(playersGuess<=100);
 		if(inRange==false){
@@ -128,7 +128,7 @@ function getDistance(playersGuess,winningNumber){
 		return "But you were within 20 digits!"
 	}
 	else{
-		return "And you were more than 20 digits from the winning number. Sad."
+		return "And you were more than 20 digits from the winning number."
 	}
 }
 
