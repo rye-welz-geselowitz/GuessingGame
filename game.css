@@ -1,58 +1,70 @@
 body{
-  background-color:#00334d;
-  color:white;
-  font-size:24px
+  background-color:white;
+  font-size:24px;
+  color:gray;
 }
 .container{
  width:80%;
- border: white 1px solid;
- padding:32px;
- 
 }
 
 h1{
-  color:white;
-  text-transform:uppercase;
-  
+  font-weight:normal;
+  font-variant:small-caps;
+  color:#000000;
+  letter-spacing:1pt;
+  word-spacing:2pt;
+  font-size:72px;
+  font-family:impact, sans-serif;
+  line-height:1;
+  text-align:center;
 }
-#feedback,#feedback2,#guessesLeft,#reveal,#hint{
-  color:white;
+
+#feedback,#feedback2,#reveal,#hint{
+  color:gray;
   font-size:24px;
-  padding:0px;
 }
+#guessesLeft,.winnerMessage{
+  color:#000000;
+  letter-spacing:1pt;
+  word-spacing:2pt;
+  font-size:32px;
+  font-family:impact, sans-serif;
+  line-height:1;
+  text-align:center;
+}
+
 #loser,#winner{
   display:none;
+  padding:16px;
 }
-.submitGuess,.playAgain{
-  padding:10px;
+#feedbackContainer{
   margin-top:10px;
-  margin-bottom: 0px;
-  background-color:teal;
-  color:white;
-  font-size:24px
+  margin-bottom:10px;
+  width:100%;
+  border: 1px dotted gray;
+}
+.submitGuess,.playAgain,.hint{
+  background-color:white;
+  color:gray;
+  text-transform:lowercase;
+  letter-spacing:1pt;
+  word-spacing:2pt;
+  font-size:32px;
+  font-family:impact, sans-serif;
+  line-height:1;
   
 }
 .submitGuess:hover,.playAgain:hover{
-  padding:10px;
-  background-color:white;
-  color:#00334d;
-  font-size:24px
-  
-}
-.hint{
-  padding:10px;
-  background-color:#00334d;
+  background-color:gray;
   color:white;
-  font-size:18px
-  
+  text-transform:lowercase;
+  letter-spacing:1pt;
+  word-spacing:2pt;
+  font-size:32px;
+  font-family:impact, sans-serif;
+  line-height:1;
 }
-.btn2:hover{
-  padding:10px;
-  background-color:white;
-  color:#00334d;
-  font-size:16px
-  
-}
+
 input {
     width: 100%;
 }

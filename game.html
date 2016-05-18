@@ -11,21 +11,23 @@
   
   <div class="container" id="stillGoing">
     <h1>Guess the Number</h1>
-  <input placeholder='Input Number 1-100' id='guessInput'><br><br>
-  <div id="feedback2"></div><br>
-  <div id="feedback"></div>
-  <button class="submitGuess">Submit Your Guess</button><br>
-  <button class="playAgain">Reset</button><br><br>
-    <div id="guessesLeft">20 guesses remaining.</div><br>
-    <button class="hint">Give Me a Hint</button><br><br>
+  <input placeholder='Input Number 1-100' id='guessInput'><br>
+    <div id="feedbackContainer">
+    <div id="feedback2"></div>
+    <div id="feedback">Waiting to give you feedback...</div>
     <div id="hint"></div>
     </div>
+  <button class="submitGuess">Submit Your Guess</button><button class="hint">Give Me a Hint</button><br>
+  <button class="playAgain">Reset</button><br><br>
+  
+    <div id="guessesLeft">20/20</div> guesses remaining<br>
+ </div>
     
-  <div class="container" id="loser">YOU LOST.<br><br>
-  <div id="reveal"></div>
+  <div class="container" id="loser"><div class="winnerMessage">You lost.</div><br>
+  <div id="reveal"></div><br>
   <button class="playAgain">Play Again</button>
   </div>  
-  <div class="container" id="winner">YOU WON!!!!<br><br>
+  <div class="container" id="winner"><div class="winnerMessage">You won.</div><br>
   <button class="playAgain">Play Again</button>
   </div>  
     

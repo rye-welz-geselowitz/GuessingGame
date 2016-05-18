@@ -15,9 +15,8 @@ function GuessEngine(){
 	this.prevGuesses=[];
 	this.winningNumber=generateWinningNumber();
 	this.guessMessage=function(playersGuess){
-		$('#hint').text("");
 		var guessesRemaining=(20-(this.prevGuesses.length+1));
-		$('#guessesLeft').text(guessesRemaining+" guesses remaining.");
+		$('#guessesLeft').text(guessesRemaining+"/20");
 		if (playersGuess==this.winningNumber){
 			return;
 		}
@@ -39,7 +38,7 @@ function GuessEngine(){
 		}	
 		var inRange=(playersGuess>=1)&&(playersGuess<=100);
 		if(inRange==false){
-	    	$('#feedback').text("Should be between 1 and 100.");
+	    	$('#feedback').text("You failed to submit a number between 1 and 100. Try again.");
 		}
 		else if(this.prevGuesses.indexOf(playersGuess)==-1){
 			this.guessMessage(playersGuess);
@@ -52,6 +51,7 @@ function GuessEngine(){
 	this.takeGuess=function(){
 		var playersGuess=playersGuessSubmission();
 		$('#feedback2').text("");
+		$('#hint').text("");
 		this.checkGuess(playersGuess);
 		var guessesRemaining=20-this.prevGuesses.length;
 	    checkLoser(guessesRemaining,this.winningNumber);
@@ -63,10 +63,10 @@ function GuessEngine(){
 		$('#loser').hide();
 		$('#winner').hide();
 		$('#stillGoing').show();
-		$('#feedback').text("");
+		$('#feedback').text("Waiting to give you feedback...");
 		$('#feedback2').text("");
 		$('#hint').text("");
-		$('#guessesLeft').text("20 guesses remaining");
+		$('#guessesLeft').text("20/20");
     	
 	}
 	this.giveHint=function(){
@@ -96,6 +96,8 @@ function GuessEngine(){
 		}
 		options.sort(function(a, b){return a-b})
 		var optionsString=options.join(", ");
+		$('#feedback').text("");
+		$('#feedback2').text("");
 		$('#hint').text("The number is one of the following: "+optionsString);
 	};
 }
