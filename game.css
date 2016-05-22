@@ -51,7 +51,6 @@ h1{
   letter-spacing:1pt;
   word-spacing:2pt;
   font-size:16px;
-  /*font-family:impact, sans-serif;*/
   line-height:1;
   
 }
@@ -61,8 +60,6 @@ h1{
   text-transform:lowercase;
   letter-spacing:1pt;
   word-spacing:2pt;
-  /*font-size:32px;*/
-  /*font-family:impact, sans-serif;*/
   line-height:1;
 }
 
